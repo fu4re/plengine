@@ -1,0 +1,4 @@
+#Here are project output configuration
+
+Output dir: $(SolutionDir)\bin\$(Configuration)\$(Platform)\
+Intermediate dir: $(SolutionDir)\bin\intermediates\$(Configuration)\$(Platform)\
