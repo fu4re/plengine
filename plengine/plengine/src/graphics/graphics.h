@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include "glew.h"
 #include "glfw3.h"
+#include "SOIL.h"
 
 namespace graphics {
 	//Variables
 	extern GLFWwindow *window;
+	extern GLuint texture_buffer;
 	extern int width;
 	extern int height;
 	extern int x_pos;
@@ -14,4 +16,5 @@ namespace graphics {
 	bool graphics_init(int window_width, int window_height, const char *title);
 	void update();
 	void render();
+	bool create_sprite(const char *filepath);
 }
