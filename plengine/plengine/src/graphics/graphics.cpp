@@ -11,12 +11,13 @@ namespace graphics {
 	int y_pos = 0;
 	//Functions
 	bool graphics_init(int window_width, int window_height, const char *title) {
-		if (!glewInit()) {
-			printf("GLEW initialization failed");
-			return false;
-		}
+		glewExperimental = true;
 		if (!glfwInit()) {
 			printf("GLFW initialization failed");
+			return false;
+		}
+		if (!glewInit()) {
+			printf("GLEW initialization failed");
 			return false;
 		}
 		window = glfwCreateWindow(window_width, window_height, title, NULL, NULL);
@@ -49,8 +50,8 @@ namespace graphics {
 	void render() {
 		glClearColor(0, 0, 0, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glActiveTexture(GL_TEXTURE0);
-		glBind
+		//glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture_buffer);
 		glfwSwapBuffers(window);
 	}
 	bool create_sprite(const char *filepath) {
@@ -68,11 +69,11 @@ namespace graphics {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-			glGenerateMipmap(GL_TEXTURE_2D);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA_MODE, GL_UNSIGNED_BYTE, image);
+			//glGenerateMipmap(GL_TEXTURE_2D);
 		}
-		glActiveTexture(0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//glActiveTexture(0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 		SOIL_free_image_data(image);
 		return true;
 	}
