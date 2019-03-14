@@ -152,10 +152,24 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\graphics\graphics.cpp" />
+    <ClCompile Include="src\math\Field.cpp" />
+    <ClCompile Include="src\math\Grid.cpp" />
+    <ClCompile Include="src\math\Map.cpp" />
+    <ClCompile Include="src\math\matan.cpp" />
     <ClCompile Include="src\math\math.cpp" />
+    <ClCompile Include="src\math\obejct3.cpp" />
+    <ClCompile Include="src\math\Object3.cpp" />
+    <ClCompile Include="src\math\vector3.cpp" />
     <ClCompile Include="src\networking\client\client.cpp" />
     <ClCompile Include="src\networking\server\server.cpp" />
-    <ClCompile Include="src\physics\physics.cpp" />
+    <ClCompile Include="src\physics\RigidBody.cpp" />
+    <ClCompile Include="src\physics\rigirbody.cpp" />
+    <ClCompile Include="src\math_and_physics\base.cpp" />
+    <ClCompile Include="src\math_and_physics\collision.cpp" />
+    <ClCompile Include="src\math_and_physics\object.cpp" />
+    <ClCompile Include="src\math_and_physics\pbase.cpp" />
+    <ClCompile Include="src\math_and_physics\plphysics.cpp" />
+    <ClCompile Include="src\math_and_physics\vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGL\GLEW\include\eglew.h" />
@@ -165,10 +179,32 @@
     <ClInclude Include="OpenGL\GLFW\include\glfw3.h" />
     <ClInclude Include="OpenGL\GLFW\include\glfw3native.h" />
     <ClInclude Include="src\graphics\graphics.h" />
+    <ClInclude Include="src\math\camera.h" />
+    <ClInclude Include="src\math\coords.h" />
+    <ClInclude Include="src\math\enumeration.h" />
+    <ClInclude Include="src\math\Field.h" />
+    <ClInclude Include="src\math\fullmath.h" />
+    <ClInclude Include="src\math\Grid.h" />
+    <ClInclude Include="src\math\Map.h" />
+    <ClInclude Include="src\math\matan.h" />
     <ClInclude Include="src\math\math.h" />
+    <ClInclude Include="src\math\NULL.h" />
+    <ClInclude Include="src\math\object3.h" />
+    <ClInclude Include="src\physics\Physics.h" />
+    <ClInclude Include="src\math\stdmath.h" />
+    <ClInclude Include="src\math\vector3.h" />
     <ClInclude Include="src\networking\client\client.h" />
     <ClInclude Include="src\networking\server\server.h" />
-    <ClInclude Include="src\physics\physics.h" />
+    <ClInclude Include="src\physics\Collision.h" />
+    <ClInclude Include="src\physics\RigidBody.h" />
+    <ClInclude Include="src\physics\rigirdbody.h" />
+    <ClInclude Include="src\math_and_physics\base.h" />
+    <ClInclude Include="src\math_and_physics\collision.h" />
+    <ClInclude Include="src\math_and_physics\physics.h" />
+    <ClInclude Include="src\math_and_physics\plmath.h" />
+    <ClInclude Include="src\math_and_physics\plphysics.h" />
+    <ClInclude Include="src\math_and_physics\point.h" />
+    <ClInclude Include="src\math_and_physics\vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
