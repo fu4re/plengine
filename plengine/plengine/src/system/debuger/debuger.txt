@@ -1,0 +1,73 @@
+#1.To display the call stack and load debugging symbols from PDB files, you need a set of functions from DBGHelp.dll
+To display the CPU registers, you just need to display the actual data from the CONTEXT structure.
+This is needed to display the registers as in the Visual Debugger
+
+/*
+
+CString strRegisters;
+
+strRegisters.Format
+(
+	L"EAX = %08X\nEBX = %08X\nECX = %08X\n"
+	L"EDX = %08X\nESI = %08X\nEDI = %08X\n"
+	L"EIP = %08X\nESP = %08X\nEBP = %08X\n"
+	L"EFL = %08X",
+	lcContext.Eax, lcContext.Ebx, lcContext.Ecx,
+	lcContext.Edx, lcContext.Esi, lcContext.Edi,
+	lcContext.Eip, lcContext.Esp, lcContext.Ebp,
+	lcContext.EFlags
+);
+
+*/
+
+#2. EXCEPTION_DEBUG_EVENT treatment
+This event is generated when an exception occurs in the process being debugged 
+(possibly when dividing by zero, going beyond the array boundaries, executing an int 3 instruction, or any other exception described in SEH). 
+The DEBUG_EVENT structure contains the EXCEPTION_DEBUF_INFO structure. 
+It is describes the exception.
+
+EXCEPTION_DEBUG_INFO::dwFirstChance - This is a link to First Chance exceptions(Example: First-chance exception at 0x00412882 in SomeModule)
+If the debugging program does not handle secont chance exceptions, it falls.
+
+#3. DebugMain.cpp [line 58]
+DBG_CONTINUE, if the exception was successfully caught by the debugger. Nothing more is needed from the program being debugged and it can run normally.
+DBG_EXCEPTION_NOT_HANDLED, if this exception is not processed (cannot be processed) by the debugger. The debugger can only record what the exception was.
+
+EXCEPTION CODES:
+
+EXCEPTION_ACCESS_VIOLATION
+EXCEPTION_ARRAY_BOUNDS_EXCEEDED
+EXCEPTION_BREAKPOINT - The debugger uses this to stop the process.
+EXCEPTION_DATATYPE_MISALIGNMENT
+EXCEPTION_FLT_DENORMAL_OPERAND
+EXCEPTION_FLT_DIVIDE_BY_ZERO
+EXCEPTION_FLT_INEXACT_RESULT
+EXCEPTION_FLT_INVALID_OPERATION
+EXCEPTION_FLT_OVERFLOW
+EXCEPTION_FLT_STACK_CHECK
+EXCEPTION_FLT_UNDERFLOW
+EXCEPTION_ILLEGAL_INSTRUCTION
+EXCEPTION_IN_PAGE_ERROR
+EXCEPTION_INT_DIVIDE_BY_ZERO
+EXCEPTION_INT_OVERFLOW
+EXCEPTION_INVALID_DISPOSITION
+EXCEPTION_NONCONTINUABLE_EXCEPTION
+EXCEPTION_PRIV_INSTRUCTION
+EXCEPTION_SINGLE_STEP
+EXCEPTION_STACK_OVERFLOW
+
+some includes (if needed):
+
+#include <windows.h>
+#include <tchar.h>
+#include <vector>
+#include <map>
+#include <Psapi.h>
+#include <DbgHelp.h>
+#include <atlstr.h>
+#include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#include <algorithm>
+#include <assert.h>

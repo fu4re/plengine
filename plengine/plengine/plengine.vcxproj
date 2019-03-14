@@ -152,6 +152,9 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\graphics\graphics.cpp" />
+    <ClCompile Include="src\system\debuger\DebugMain.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGL\GLEW\include\eglew.h" />
@@ -161,6 +164,10 @@
     <ClInclude Include="OpenGL\GLFW\include\glfw3.h" />
     <ClInclude Include="OpenGL\GLFW\include\glfw3native.h" />
     <ClInclude Include="src\graphics\graphics.h" />
+    <ClInclude Include="src\system\debuger\FileName.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="src\system\log_system\Log.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

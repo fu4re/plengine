@@ -74,7 +74,7 @@ CString GetFileNameFromHandle(HANDLE hFile)
 
 								if (bFound)
 								{
-									strFilename.Format(L"%s%s", szDrive, pszFilename + uNameLen);
+									strFilename.Format("%s%s", szDrive, pszFilename + uNameLen);
 								}
 							}
 						}

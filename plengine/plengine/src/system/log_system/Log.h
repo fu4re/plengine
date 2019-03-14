@@ -1,4 +1,8 @@
-#include "Common.h"
+#include <fstream>
+#include <cstdlib>
+#include <iostream>
+#include <string.h>
+//#include <vector>
 
 enum e_type
 {
