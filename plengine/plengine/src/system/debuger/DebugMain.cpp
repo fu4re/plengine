@@ -4,6 +4,7 @@
 
 #include "../log_system/Log.h"
 #include "FileName.h"
+#include "DebugMain.h"
 
 //#define BUFSIZE 512
 
@@ -13,13 +14,9 @@
 
 #define DEBUG_EVENT_MSG				WM_APP + WM_KEYDOWN // thread msging (WM_KEYDOWN = 0x0100)
 
-bool m_bIsDebugging;
-
-//CString ProcessNameToDebug;
-
 // MAIN DEBUG CODE ///////////////////////////////////////////////////////////////////////////
 
-void SetDbgMode(bool bDebug)
+void Debugger::SetDbgMode(bool bDebug)
 {
 	if (!bDebug)
 		printf("Debug was succesfully started");			//LOG 
@@ -29,7 +26,7 @@ void SetDbgMode(bool bDebug)
 	m_bIsDebugging = bDebug;
 }
 
-void DbgThreadProc()
+void Debugger::DbgThreadProc()
 {
 	STARTUPINFO si;					// defines window, desktop and appearance
 	PROCESS_INFORMATION pi;
@@ -55,7 +52,7 @@ void DbgThreadProc()
 	CString strEventMsg; // A CString object supports either the wchar_t type or the wchar_t type
 	std::map<LPVOID, CString> DllNameMap;
 
-	DEBUG_EVENT debug_event = { 0 }; // Event ID, process ID, thread ID
+	DEBUG_EVENT debug_event = { 0 }; // Event ID, process ID, thread ID (FUNCTION OF OBTAINING PROCESS DATA - in process) 
 
 	bool bContinueDbg = true;
 
@@ -196,20 +193,93 @@ void DbgThreadProc()
 }
 
 // Run LOG thread
-LRESULT/*void*/ DebugEventMessage(LPARAM lParam) //
+LRESULT Debugger::DbgEventLog(WPARAM wParam, LPARAM lParam) // LPARAM - Window id(HANDLE), WPARAM - Activation flag 
 {
+	CString* pMsg = (CString*)wParam;
+
 	switch (lParam)
 	{
-	case :
-
-	default:
-		break;
+	case CREATE_PROCESS_DEBUG_EVENT:
+		{
+			DbgLog(Info, "Process started", 0, *pMsg); // remove fucking zero
+			TotalEvents++;
+			break;
+		}
+	case CREATE_THREAD_DEBUG_EVENT:
+		{
+			DbgLog(Info, "Thread created", 0, *pMsg);// remove fucking zero
+			ThreadCount++;
+			TotalEvents++;
+			break;
+		}
+	case EXIT_THREAD_DEBUG_EVENT:
+		{
+			DbgLog(Info, "Thread exited", 0, *pMsg);// remove fucking zero
+			ThreadCount--;
+			TotalEvents++;
+			break;
+		}
+	case EXIT_PROCESS_DEBUG_EVENT:
+		{
+			DbgLog(Info, "Process exited with code", 0, *pMsg);// remove fucking zero
+			TotalEvents++;
+			break;
+		}
+	case LOAD_DLL_DEBUG_EVENT:
+		{
+			DbgLog(Info, "DLL loaded", 0, *pMsg);// remove fucking zero
+			DLLCount++;
+			TotalEvents++;
+			break;
+		}
+	case UNLOAD_DLL_DEBUG_EVENT:
+		{
+			DbgLog(Info, "DLL unloaded", 0, *pMsg);// remove fucking zero
+			DLLCount--;
+			TotalEvents++;
+			break;
+		}
+	case OUTPUT_DEBUG_STRING_EVENT:
+		{
+			DbgLog(Info, "Debug message", 0, *pMsg);// remove fucking zero
+			OutputDebugCount++;
+			TotalEvents++;
+			break;
+		}
+	case EXCEPTION_DEBUG_EVENT:
+		{
+			DbgLog(Info, "Debug exception", 0, *pMsg);// remove fucking zero
+			ExceptionCount++;
+			TotalEvents++;
+			break;
+		}	
 	}
+
+	//CString counts;
+
+	DbgLog(Service, "Total debugging events", 0, TotalEvents);// remove fucking zero
+
+	DbgLog(Service, "Threads", 0, ThreadCount);// remove fucking zero
+
+	DbgLog(Service, "DLLs", 0, DLLCount);// remove fucking zero
+
+	DbgLog(Service, "Exceptions", 0, ExceptionCount);// remove fucking zero
+
+	DbgLog(Service, "Output debugs", 0, OutputDebugCount);// remove fucking zero
+
+	if (lParam == EXIT_PROCESS_DEBUG_EVENT)
+	{
+		SetDbgMode(false);
+	}
+
+	return 0;
 }
 
-DWORD WINAPI DbgThread(/*void* param*/)
+DWORD WINAPI DbgThread(void* param)
 {
-	DbgThreadProc();
+	Debugger *pThis = static_cast<Debugger*>(param);
+
+	pThis->DbgThreadProc();
 
 	return 0;
 }

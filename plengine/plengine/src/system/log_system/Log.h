@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string.h>
-//#include <vector>
+#include <vector>
 
 enum e_type
 {
@@ -68,7 +68,7 @@ void Log(int type, std::string path, std::string message, std::string file, Arg&
 
 	if (t_type == "Closed")
 	{
-		std::string c_out = format(("Log: (%s, %s) -> %s", t_type.c_str(), path.c_str(), format(message, t_arg...).c_str());
+		std::string c_out = format("Log: (%s, %s) -> %s", t_type.c_str(), path.c_str(), format(message, t_arg...).c_str());
 		ofs << out.c_str() << std::endl;
 		ofs.close();
 		std::cout << "file closed" << std::endl;
@@ -79,4 +79,35 @@ void Log(int type, std::string path, std::string message, std::string file, Arg&
 	}
 
 	printf("%s\n", out.c_str()); //for console
+}
+
+template <typename ...Arg>
+void DbgLog(int type, std::string path, std::string message, Arg&& ...t_arg) //std::string message - in process
+{
+	std::ofstream ofs;
+	ofs.open("C:/Log/log.txt", std::ios::app);
+
+	std::string d_type;
+	switch (type)
+	{
+	case e_type::Info:
+	{
+		d_type = "Info";
+		break;
+	}
+	case e_type::Service:
+	{
+		d_type = "Service";
+		break;
+	}
+	default:
+		d_type = "Unknown";
+		break;
+	}
+
+	std::string d_out = format("Debugger: (%s, %s) -> %s", d_type.c_str(), path.c_str(), format(message, t_arg...).c_str());
+
+	ofs << d_out.c_str() << std::endl;
+
+	printf("%s\n", d_out.c_str());
 }
