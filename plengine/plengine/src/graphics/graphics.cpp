@@ -1,3 +1,4 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include "graphics.h"
 
 namespace graphics {
@@ -11,12 +12,13 @@ namespace graphics {
 	int y_pos = 0;
 	//Functions
 	bool graphics_init(int window_width, int window_height, const char *title) {
-		if (!glewInit()) {
-			printf("GLEW initialization failed");
+		glewExperimental = true;
+		if (glfwInit() == false) {
+			printf("GLFW initialization failed");
 			return false;
 		}
-		if (!glfwInit()) {
-			printf("GLFW initialization failed");
+		if (glewInit() == false) {
+			printf("GLEW initialization failed");
 			return false;
 		}
 		window = glfwCreateWindow(window_width, window_height, title, NULL, NULL);
@@ -48,32 +50,35 @@ namespace graphics {
 	}
 	void render() {
 		glClearColor(0, 0, 0, 0);
+		glEnable(GL_TEXTURE_2D);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glActiveTexture(GL_TEXTURE0);
-		glBind
+		glBindTexture(GL_TEXTURE_2D, texture_buffer);
 		glfwSwapBuffers(window);
 	}
 	bool create_sprite(const char *filepath) {
 		int image_width = 0;
 		int image_height = 0;
-		unsigned char *image = SOIL_load_image(filepath, &image_width, &image_height, NULL, NULL);
+		unsigned char *image = stbi_load(filepath, &image_width, &image_height, NULL, NULL);
 		if (image == nullptr) {
 			printf("Image not found");
 			return false;
 		}
 		else {
+			glEnable(GL_TEXTURE_2D);
 			glGenTextures(1, &texture_buffer);
 			glBindTexture(GL_TEXTURE_2D, texture_buffer);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-			glGenerateMipmap(GL_TEXTURE_2D);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image_width, image_height, 0, GL_RGBA_MODE, GL_UNSIGNED_BYTE, image);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			if (image) {
+				stbi_image_free(image);
+			}
 		}
-		glActiveTexture(0);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		SOIL_free_image_data(image);
+		glActiveTexture(GL_TEXTURE0);
 		return true;
 	}
 }

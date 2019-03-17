@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "glew.h"
 #include "glfw3.h"
-#include "SOIL.h"
+#include "stbi_image.h"
 
 namespace graphics {
 	//Variables
