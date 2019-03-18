@@ -7,7 +7,6 @@
 namespace graphics {
 	//Variables
 	extern GLFWwindow *window;
-	extern GLuint texture_buffer;
 	extern int width;
 	extern int height;
 	extern int x_pos;
@@ -15,6 +14,9 @@ namespace graphics {
 	//Functions
 	bool graphics_init(int window_width, int window_height, const char *title);
 	void update();
+	void clear();
 	void render();
-	bool create_sprite(const char *filepath);
+	void create_rect(int x, int y, int width, int height, GLuint texture_buffer);
+	GLuint load_texture(const char *filepath);
+	void close_opengl();
 }
