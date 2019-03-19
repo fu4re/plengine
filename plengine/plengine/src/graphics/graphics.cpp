@@ -20,8 +20,6 @@ namespace graphics {
 		int width, height;
 		glfwGetFramebufferSize(*window, &width, &height);
 		const GLFWvidmode *video_mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-		x_pos = (video_mode->width - window_width) / 2;
-		y_pos = (video_mode->height - window_height) / 2;
 		glfwSetWindowPos(*window, x_pos, y_pos);
 		//Viewport
 		glViewport(0, 0, width, height);
