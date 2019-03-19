@@ -4,19 +4,22 @@
 #include "glfw3.h"
 #include "stbi_image.h"
 
+struct rect {
+	int x = 0;
+	int y = 0;
+	int width = 0;
+	int height = 0;
+};
+struct sprite {
+	rect sprite_rect;
+	GLuint texture_buffer;
+};
 namespace graphics {
-	//Variables
-	extern GLFWwindow *window;
-	extern int width;
-	extern int height;
-	extern int x_pos;
-	extern int y_pos;
-	//Functions
-	bool graphics_init(int window_width, int window_height, const char *title);
+	bool graphics_init(GLFWwindow **window, int window_width, int window_height, int x_pos, int y_pos, const char *title);
 	void update();
 	void clear();
-	void render();
-	void create_rect(int x, int y, int width, int height, GLuint texture_buffer);
+	void render(GLFWwindow **window);
 	GLuint load_texture(const char *filepath);
-	void close_opengl();
+	void display_sprite(sprite spr);
+	void close_opengl(GLFWwindow **window);
 }

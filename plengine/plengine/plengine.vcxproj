@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\graphics\graphics.cpp" />
+    <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\math\math.cpp" />
     <ClCompile Include="src\networking\client\client.cpp" />
     <ClCompile Include="src\networking\server\server.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="OpenGL\GLFW\include\glfw3.h" />
     <ClInclude Include="OpenGL\GLFW\include\glfw3native.h" />
     <ClInclude Include="src\graphics\graphics.h" />
+    <ClInclude Include="src\input\input.h" />
     <ClInclude Include="src\math\math.h" />
     <ClInclude Include="src\networking\client\client.h" />
     <ClInclude Include="src\networking\server\server.h" />
