@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\graphics\graphics.cpp" />
+    <ClCompile Include="src\graphics\graphics_main.cpp" />
     <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\math\math.cpp" />
     <ClCompile Include="src\networking\client\client.cpp" />

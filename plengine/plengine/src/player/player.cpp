@@ -1,16 +1,28 @@
 #include "player.h"
 
 namespace player {
-	void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-		rect coord_changes;
-		if (key == GLFW_KEY_D) {
-			coord_changes.x += 5;
+	void handle_input(GLFWwindow *window, player_struct &plr) {
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+			plr.speedx = 5;
 		}
-		else if (key == GLFW_KEY_A) {
-			coord_changes.x -= 5;
+		else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+			plr.speedx = -5;
+		}
+		else {
+			plr.speedx = 0;
+		}
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+			plr.speedy = 5;
+		}
+		else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+			plr.speedy = -5;
+		}
+		else {
+			plr.speedy = 0;
 		}
 	}
-	void input_setup(GLFWwindow *window) {
-		glfwSetKeyCallback(window, keyCallback);
+	void player_update(player_struct &plr) {
+		plr.player_sprite.sprite_rect.x += plr.speedx;
+		plr.player_sprite.sprite_rect.y += plr.speedy;
 	}
 }

@@ -57,7 +57,7 @@ namespace graphics {
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	GLuint load_texture(const char *filepath) {
-		GLuint texture_buffer;
+		GLuint texture_buffer = 0;
 		int image_width = 0;
 		int image_height = 0;
 		unsigned char *image = stbi_load(filepath, &image_width, &image_height, NULL, NULL);

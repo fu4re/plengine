@@ -22,4 +22,5 @@ namespace graphics {
 	GLuint load_texture(const char *filepath);
 	void display_sprite(sprite spr);
 	void close_opengl(GLFWwindow **window);
+	void graphics_main();
 }

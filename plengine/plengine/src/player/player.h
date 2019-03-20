@@ -1,7 +1,7 @@
 #pragma once
 #include "graphics/graphics.h"
 
-struct player {
+struct player_struct {
 	sprite player_sprite;
 	int speedx = 0;
 	int speedy = 0;
@@ -9,7 +9,7 @@ struct player {
 };
 
 namespace player {
-	void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
-	void input_setup(GLFWwindow *window);
+	void handle_input(GLFWwindow *window, player_struct &plr);
+	void player_update(player_struct &plr);
 }
 
