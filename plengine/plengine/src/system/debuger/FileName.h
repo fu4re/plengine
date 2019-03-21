@@ -22,7 +22,7 @@ CString GetFileNameFromHandle(HANDLE hFile)
 
 	if (dwFileSizeLo == 0 && dwFileSizeHi == 0)
 	{
-		return FALSE;
+		return "0";
 	}
 
 	// Create a file mapping object.

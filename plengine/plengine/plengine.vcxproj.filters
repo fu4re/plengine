@@ -56,5 +56,11 @@
     <ClInclude Include="src\system\debuger\DebugMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\system\platform\PlatformChecker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\stack_debug\StackDebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

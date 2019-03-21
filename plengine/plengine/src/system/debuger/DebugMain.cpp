@@ -7,7 +7,6 @@
 #include "DebugMain.h"
 
 //#define BUFSIZE 512
-
 #ifndef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -19,9 +18,11 @@
 void Debugger::SetDbgMode(bool bDebug)
 {
 	if (!bDebug)
-		printf("Debug was succesfully started");			//LOG 
+		//printf("Debug was succesfully started");
+		DbgLog(Info, "Debug was succesfully started", 0, 1);
 	else
-		printf("Debugging process stopped");				//LOG
+		//printf("Debugging process stopped");
+		DbgLog(Info, "Debug was succesfully started", 0, 1);
 
 	m_bIsDebugging = bDebug;
 }
@@ -73,7 +74,6 @@ void Debugger::DbgThreadProc()
 		case CREATE_PROCESS_DEBUG_EVENT:
 			{
 				strEventMsg = GetFileNameFromHandle(debug_event.u.CreateProcessInfo.hFile);
-				
 			}
 			break;
 		case CREATE_THREAD_DEBUG_EVENT:

@@ -171,6 +171,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\system\log_system\Log.h" />
+    <ClInclude Include="src\system\platform\PlatformChecker.h" />
+    <ClInclude Include="src\system\stack_debug\StackDebug.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
