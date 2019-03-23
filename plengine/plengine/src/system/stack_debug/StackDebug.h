@@ -1,22 +1,42 @@
-
-
 #ifndef __STACK_DEBUG_H__
 #define __STACK_DEBUG_H__
+
 
 //#include "PlWindows.h"
 #include <Windows.h>
 #include <string>
 #include <atlstr.h>
-
-
+#include <vector>
+//#include "system/platform/PlatformChecker.h"
 
 // Limits the maximal number of functions in call stack (optimization)
 enum {MAX_DEBUG_STACK_ENTRIES = 80};
 
 struct StackDebug
 {
-	// Returns single instance of DebugStack
-	static StackDebug* instance();
+	StackDebug(){}
+
+	/*******************VARIABLES********************************/
+	bool m_bIsFatalError;
+	std::vector<std::string> m_functions;
+
+	void(*m_postBackupProcess) ();
+
+	static const char* const szFatalErrorCode;
+	/************************************************************/
+
+	/*******************STRUCT FUNCTIONS*************************/
+	static const char* TranslateExceptionCode(DWORD dwExcept);
+
+	static void PutVersion(char* ver);
+	
+	static void Screenshot(const char* szFileName); 
+
+	static void WriteLineToLog(const char* format, ...);
+	/************************************************************/
+
+	// Returns single instance of DebugStack (necessary if another platform)
+	//static StackDebug* instance();
 
 	virtual int		handleException(EXCEPTION_POINTERS* exception_pointer) { return 0; } //Exception pointer
 	virtual void	CollectCurrentStackFrame(int maxStackEntries = MAX_DEBUG_STACK_ENTRIES);
@@ -51,8 +71,17 @@ struct StackDebug
 	}
 
 	virtual std::string	GetCurrentFilename() { return "[unknown]"; }
-};
 
+	virtual void	LogCallStack();
+	virtual void	FatalError(const char*); //check the app and triggers fatal error
+	virtual void	ReportBug(const char*); // notifies of an error, but does not close the program
+
+	virtual void	FileCreationCallback(void(*postBackupProcess)()); // this function will return a function and a pointer to postBackupProcess
+
+	//accepts functions in stack (current stack info)
+	void			getCallStack(std::vector<std::string>& functions) { functions = m_functions; }
+
+}StackDebug;
 
 /*
 DELETE "VIRTUAL" ON FUNC IF UNLESS OVERRIDE IS REQUIRED

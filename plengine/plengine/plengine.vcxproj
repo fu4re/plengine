@@ -155,6 +155,7 @@
     <ClCompile Include="src\system\debuger\DebugMain.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\system\stack_debug\StackDebug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGL\GLEW\include\eglew.h" />
