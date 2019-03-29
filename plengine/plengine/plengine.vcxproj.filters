@@ -65,5 +65,13 @@
     <ClInclude Include="src\system\stack_debug\StackDebug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\system\managers\StrManager\ToString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\system\managers\StrManager\ToString.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
