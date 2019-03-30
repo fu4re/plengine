@@ -4,6 +4,18 @@
 #include <string.h>
 #include <vector>
 
+typedef enum service_type {
+	NONE = 0, //as default variable
+	DEBUGER,
+	MEMORY_MANAGER,
+	LOG_SYSTEM,
+	GRAPHICS,
+	OPENGL,
+	MATH,
+	PHYSICS,
+	NETWORKING
+}service_type_t;
+
 enum e_type
 {
 	Error,
