@@ -38,11 +38,40 @@ namespace graphics {
 		glfwPollEvents();
 	}
 	void clear() {
+		glEnable(GL_DEPTH_TEST);
 		glClearColor(0, 0, 0, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 	void render(GLFWwindow **window) {
 		glfwSwapBuffers(*window);
+	}
+	GLuint load_texture(const char *filepath) {
+		GLuint texture_buffer = 0;
+		int image_width = 0;
+		int image_height = 0;
+		int nChannels = 0;
+		unsigned char *image = stbi_load(filepath, &image_width, &image_height, &nChannels, NULL);
+		if (image == nullptr) {
+			printf("Image not found");
+		}
+		else {
+			glEnable(GL_TEXTURE_2D);
+			glGenTextures(1, &texture_buffer);
+			glBindTexture(GL_TEXTURE_2D, texture_buffer);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_DECAL);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_DECAL);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		}
+		glBindTexture(GL_TEXTURE_2D, 0);
+		stbi_image_free(image);
+		return texture_buffer;
 	}
 	void display_sprite(sprite spr) {
 		glBindTexture(GL_TEXTURE_2D, spr.texture_buffer);
@@ -55,28 +84,6 @@ namespace graphics {
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-	GLuint load_texture(const char *filepath) {
-		GLuint texture_buffer = 0;
-		int image_width = 0;
-		int image_height = 0;
-		unsigned char *image = stbi_load(filepath, &image_width, &image_height, NULL, NULL);
-		if (image == nullptr) {
-			printf("Image not found");
-		}
-		else {
-			glEnable(GL_TEXTURE_2D);
-			glGenTextures(1, &texture_buffer);
-			glBindTexture(GL_TEXTURE_2D, texture_buffer);
-			//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-		}
-		glBindTexture(GL_TEXTURE_2D, 0);
-		stbi_image_free(image);
-		return texture_buffer;
 	}
 	void close_opengl(GLFWwindow **window) {
 		glfwDestroyWindow(*window);

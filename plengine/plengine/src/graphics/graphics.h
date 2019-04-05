@@ -3,6 +3,7 @@
 #include "glew.h"
 #include "glfw3.h"
 #include "stbi_image.h"
+#include <assert.h>
 
 struct rect {
 	int x = 0;

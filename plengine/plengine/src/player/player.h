@@ -11,5 +11,6 @@ struct player_struct {
 namespace player {
 	void handle_input(GLFWwindow *window, player_struct &plr);
 	void player_update(player_struct &plr);
+	void colission_handling(player_struct &player, rect obj_rect);
 }
 
