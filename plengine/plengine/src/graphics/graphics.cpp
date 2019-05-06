@@ -32,13 +32,13 @@ namespace graphics {
 		glEnable(GL_ALPHA_TEST);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_DEPTH_TEST);
 		return true;
 	}
 	void update() {
 		glfwPollEvents();
 	}
 	void clear() {
-		glEnable(GL_DEPTH_TEST);
 		glClearColor(0, 0, 0, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
@@ -50,7 +50,7 @@ namespace graphics {
 		int image_width = 0;
 		int image_height = 0;
 		int nChannels = 0;
-		unsigned char *image = stbi_load(filepath, &image_width, &image_height, &nChannels, NULL);
+		unsigned char *image = stbi_load(filepath, &image_width, &image_height, &nChannels, STBI_rgb_alpha);
 		if (image == nullptr) {
 			printf("Image not found");
 		}
@@ -65,8 +65,6 @@ namespace graphics {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_DECAL);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_DECAL);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		}
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -77,10 +75,10 @@ namespace graphics {
 		glBindTexture(GL_TEXTURE_2D, spr.texture_buffer);
 		glEnable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
-		glTexCoord2d(0, 0); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y); //Left down corner
-		glTexCoord2d(0, 1); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y); //Right down corner
-		glTexCoord2d(1, 1); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y - spr.sprite_rect.height); // Right down corner
-		glTexCoord2d(1, 0); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y - spr.sprite_rect.height); // Left down corner
+		glTexCoord2d(1, 0); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y); //Left down corner
+		glTexCoord2d(0, 0); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y); //Right down corner
+		glTexCoord2d(0, 1); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y - spr.sprite_rect.height); // Right down corner
+		glTexCoord2d(1, 1); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y - spr.sprite_rect.height); // Left down corner
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);

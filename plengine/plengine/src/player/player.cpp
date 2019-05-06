@@ -25,21 +25,25 @@ namespace player {
 		plr.player_sprite.sprite_rect.x += plr.speedx;
 		plr.player_sprite.sprite_rect.y += plr.speedy;
 	}
-	void colission_handling(player_struct &player, rect obj_rect) {
-		if ((player.player_sprite.sprite_rect.x > obj_rect.x && player.player_sprite.sprite_rect.x < obj_rect.x + obj_rect.width)
-		&& (player.player_sprite.sprite_rect.y > obj_rect.y - obj_rect.height && player.player_sprite.sprite_rect.y < obj_rect.y))
+	void colission_handling(player_struct &plr, rect &obj_rect) {
+		if (plr.player_sprite.sprite_rect.x + plr.player_sprite.sprite_rect.width > obj_rect.x && obj_rect.x + obj_rect.width > plr.player_sprite.sprite_rect.x
+		&& plr.player_sprite.sprite_rect.y > obj_rect.y - obj_rect.height && obj_rect.y > plr.player_sprite.sprite_rect.y - plr.player_sprite.sprite_rect.height)
 		{
-			if (player.speedx > 0) {
-				player.player_sprite.sprite_rect.x = obj_rect.x;
+			if (plr.speedx > 0) {
+				plr.player_sprite.sprite_rect.x = obj_rect.x - plr.player_sprite.sprite_rect.width;
+				plr.speedx = 0;
 			}
-			else if (player.speedx < 0) {
-				player.player_sprite.sprite_rect.x = obj_rect.x + obj_rect.width;
+			else if (plr.speedx < 0) {
+				plr.player_sprite.sprite_rect.x = obj_rect.x + obj_rect.width;
+				plr.speedx = 0;
 			}
-			if (player.speedy > 0) {
-				player.player_sprite.sprite_rect.y = obj_rect.y - obj_rect.height;
+			if (plr.speedy > 0) {
+				plr.player_sprite.sprite_rect.y = obj_rect.y - obj_rect.height;
+				plr.speedy = 0;
 			}
-			else if (player.speedy < 0) {
-				player.player_sprite.sprite_rect.y = obj_rect.y;
+			else if (plr.speedy < 0) {
+				plr.player_sprite.sprite_rect.y = obj_rect.y + plr.player_sprite.sprite_rect.height;
+				plr.speedy = 0;
 			}
 		}
 	}
