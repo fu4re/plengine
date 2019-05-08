@@ -45,7 +45,6 @@ namespace graphics {
 					block.sprite_rect.y = empty_block.sprite_rect.y = i * block.sprite_rect.height;
 					if (map[i][j] == 1) {
 						graphics::display_sprite(block);
-						player::colission_handling(player1, block.sprite_rect);
 					}
 					else if (map[i][j] == 0) {
 						graphics::display_sprite(empty_block);
@@ -54,6 +53,7 @@ namespace graphics {
 			}
 			//End
 			player::player_update(player1);
+			player::colission_handling(player1, block, player::map1);
 			graphics::update();
 			graphics::render(&window);
 		}
