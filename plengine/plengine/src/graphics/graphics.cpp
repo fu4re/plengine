@@ -2,6 +2,10 @@
 #include "graphics.h"
 
 namespace graphics {
+	double last_time = glfwGetTime();
+	double delta_time = 0.0f;
+	double current_time = 0.0f;
+	double fps = 60.0f;
 	bool graphics_init(GLFWwindow **window, int window_width, int window_height, int x_pos, int y_pos, const char *title) {
 		if (glfwInit() == false) {
 			printf("GLFW initialization failed");
@@ -75,8 +79,8 @@ namespace graphics {
 		glBindTexture(GL_TEXTURE_2D, spr.texture_buffer);
 		glEnable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
-		glTexCoord2d(1, 0); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y); //Left down corner
-		glTexCoord2d(0, 0); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y); //Right down corner
+		glTexCoord2d(1, 0); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y); //Left upper corner
+		glTexCoord2d(0, 0); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y); //Right upper corner
 		glTexCoord2d(0, 1); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y - spr.sprite_rect.height); // Right down corner
 		glTexCoord2d(1, 1); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y - spr.sprite_rect.height); // Left down corner
 		glEnd();

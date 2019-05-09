@@ -16,6 +16,10 @@ struct sprite {
 	GLuint texture_buffer;
 };
 namespace graphics {
+	extern double last_time;
+	extern double delta_time;
+	extern double current_time;
+	extern double fps;
 	bool graphics_init(GLFWwindow **window, int window_width, int window_height, int x_pos, int y_pos, const char *title);
 	void update();
 	void clear();

@@ -29,7 +29,8 @@ struct map {
 namespace player {
 	extern map map1;
 	void handle_input(GLFWwindow *window, player_struct &plr);
-	void player_update(player_struct &plr);
-	void colission_handling(player_struct &plr, sprite &obj_rect, map map);
+	void player_update(player_struct &plr, sprite &obj, map map1);
+	void colission_handling_x(player_struct &plr, sprite &obj_rect, map map);
+	void colission_handling_y(player_struct &plr, sprite &obj_rect, map map);
 }
 
