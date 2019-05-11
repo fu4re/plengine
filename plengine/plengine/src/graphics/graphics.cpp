@@ -2,10 +2,11 @@
 #include "graphics.h"
 
 namespace graphics {
-	double last_time = glfwGetTime();
-	double delta_time = 0.0f;
-	double current_time = 0.0f;
-	double fps = 60.0f;
+	double last_time = 0.0;
+	double delta_time = 0.0;
+	double current_time = 0.0;
+	double fps = 60.0;
+	double period = 1.0 / fps;
 	bool graphics_init(GLFWwindow **window, int window_width, int window_height, int x_pos, int y_pos, const char *title) {
 		if (glfwInit() == false) {
 			printf("GLFW initialization failed");

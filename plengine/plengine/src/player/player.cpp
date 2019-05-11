@@ -4,17 +4,17 @@ namespace player {
 	map map1;
 	void handle_input(GLFWwindow *window, player_struct &plr) {
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-			plr.speedx = 1;
+			plr.speedx = 5;
 		}
 		else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-			plr.speedx = -1;
+			plr.speedx = -5;
 		}
 		else {
 			plr.speedx = 0;
 		}
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 			if (plr.onGround) {
-				plr.speedy = 1;
+				plr.speedy = 5;
 			}
 		}
 		else {

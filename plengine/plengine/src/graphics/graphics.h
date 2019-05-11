@@ -4,6 +4,7 @@
 #include "glfw3.h"
 #include "stbi_image.h"
 #include <assert.h>
+#include <math.h>
 
 struct rect {
 	int x = 0;
@@ -20,6 +21,7 @@ namespace graphics {
 	extern double delta_time;
 	extern double current_time;
 	extern double fps;
+	extern double period;
 	bool graphics_init(GLFWwindow **window, int window_width, int window_height, int x_pos, int y_pos, const char *title);
 	void update();
 	void clear();

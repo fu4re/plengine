@@ -3,8 +3,8 @@
 
 struct player_struct {
 	sprite player_sprite;
-	int speedx = 0;
-	int speedy = 0;
+	double speedx = 0;
+	double speedy = 0;
 	bool onGround = false;
 	bool collision_x = false;
 	bool collision_y = false;
