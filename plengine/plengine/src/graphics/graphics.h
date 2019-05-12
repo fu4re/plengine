@@ -17,6 +17,11 @@ struct sprite {
 	GLuint texture_buffer;
 };
 namespace graphics {
+	extern const GLFWvidmode *video_mode;
+	extern int width;
+	extern int height;
+	extern int x_position;
+	extern int y_position;
 	extern double last_time;
 	extern double delta_time;
 	extern double current_time;
@@ -28,6 +33,7 @@ namespace graphics {
 	void render(GLFWwindow **window);
 	GLuint load_texture(const char *filepath);
 	void display_sprite(sprite spr);
+	void display_sprite(sprite spr, int offset_x, int offset_y);
 	void close_opengl(GLFWwindow **window);
 	void graphics_main();
 }

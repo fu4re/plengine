@@ -11,8 +11,9 @@ struct player_struct {
 };
 struct map {
 	static const int map_width = 20;
-	static const int map_height = 10;
+	static const int map_height = 11;
 	int map_arr[map_height][map_width] = {
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -30,7 +31,6 @@ namespace player {
 	extern map map1;
 	void handle_input(GLFWwindow *window, player_struct &plr);
 	void player_update(player_struct &plr, sprite &obj, map map1);
-	void colission_handling_x(player_struct &plr, sprite &obj_rect, map map);
-	void colission_handling_y(player_struct &plr, sprite &obj_rect, map map);
+	void collission_handling(player_struct &plr, sprite &obj_rect, map map, int dir);
 }
 

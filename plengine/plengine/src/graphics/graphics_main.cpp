@@ -3,7 +3,8 @@
 namespace graphics {
 	void graphics_main() {
 		map map1;
-		int map_offset_x = 0;
+		int offset_x = 0;
+		int offset_y = 0;
 		GLFWwindow *window;
 		player_struct player1;
 		sprite block;
@@ -22,7 +23,7 @@ namespace graphics {
 		player1.player_sprite.texture_buffer = graphics::load_texture("assets/background.png");
 		block.texture_buffer = graphics::load_texture("assets/block.png");
 		empty_block.texture_buffer = graphics::load_texture("assets/back.jpg");
-		while (1) {
+		while (!glfwWindowShouldClose(window)) {
 			current_time = glfwGetTime();
 			delta_time = current_time - last_time;
 			if (delta_time >= period) {
@@ -30,11 +31,11 @@ namespace graphics {
 				graphics::clear();
 				player::handle_input(window, player1);
 				//Start of the area where you need to draw objects
-				graphics::display_sprite(player1.player_sprite);
+				graphics::display_sprite(player1.player_sprite, offset_x, offset_y);
 				for (int i = 0; i <= map1.map_height; i++) {
 					for (int j = 0; j <= map1.map_width; j++) {
-						block.sprite_rect.x = empty_block.sprite_rect.x = j * block.sprite_rect.width;
-						block.sprite_rect.y = empty_block.sprite_rect.y = (map1.map_height - i) * block.sprite_rect.height;
+						block.sprite_rect.x = empty_block.sprite_rect.x = j * block.sprite_rect.width - offset_x;
+						block.sprite_rect.y = empty_block.sprite_rect.y = (map1.map_height - i) * block.sprite_rect.height - offset_y;
 						if (map1.map_arr[i][j] == 1) {
 							graphics::display_sprite(block);
 						}
@@ -45,6 +46,10 @@ namespace graphics {
 				}
 				//End
 				player::player_update(player1, block, map1);
+				if (player1.player_sprite.sprite_rect.x > screen_width / 2)
+					offset_x = player1.player_sprite.sprite_rect.x - screen_width / 2;
+				if (player1.player_sprite.sprite_rect.y >= screen_height / 2)
+					offset_y = player1.player_sprite.sprite_rect.y - screen_height / 2;
 				graphics::update();
 				graphics::render(&window);
 			}

@@ -2,6 +2,11 @@
 #include "graphics.h"
 
 namespace graphics {
+	const GLFWvidmode *video_mode = nullptr;
+	int width = 0;
+	int height = 0;
+	int x_position = 0;
+	int y_position = 0;
 	double last_time = 0.0;
 	double delta_time = 0.0;
 	double current_time = 0.0;
@@ -22,9 +27,8 @@ namespace graphics {
 			return false;
 		}
 		//Setting window position
-		int width, height;
 		glfwGetFramebufferSize(*window, &width, &height);
-		const GLFWvidmode *video_mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		video_mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		glfwSetWindowPos(*window, x_pos, y_pos);
 		//Viewport
 		glViewport(0, 0, width, height);
@@ -38,6 +42,7 @@ namespace graphics {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_SCISSOR_TEST);
 		return true;
 	}
 	void update() {
@@ -77,6 +82,20 @@ namespace graphics {
 		return texture_buffer;
 	}
 	void display_sprite(sprite spr) {
+		glBindTexture(GL_TEXTURE_2D, spr.texture_buffer);
+		glEnable(GL_TEXTURE_2D);
+		glBegin(GL_QUADS);
+		glTexCoord2d(1, 0); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y); //Left upper corner
+		glTexCoord2d(0, 0); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y); //Right upper corner
+		glTexCoord2d(0, 1); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y - spr.sprite_rect.height); // Right down corner
+		glTexCoord2d(1, 1); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y - spr.sprite_rect.height); // Left down corner
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+	void display_sprite(sprite spr, int offset_x, int offset_y) {
+		spr.sprite_rect.x -= offset_x;
+		spr.sprite_rect.y -= offset_y;
 		glBindTexture(GL_TEXTURE_2D, spr.texture_buffer);
 		glEnable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
