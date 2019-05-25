@@ -158,6 +158,7 @@
     <ClCompile Include="src\networking\server\server.cpp" />
     <ClCompile Include="src\physics\physics.cpp" />
     <ClCompile Include="src\player\player.cpp" />
+    <ClCompile Include="src\sound\sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGL\GLEW\include\eglew.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\networking\server\server.h" />
     <ClInclude Include="src\physics\physics.h" />
     <ClInclude Include="src\player\player.h" />
+    <ClInclude Include="src\sound\sound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

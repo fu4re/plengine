@@ -1,10 +1,17 @@
 #pragma once
+#include <iostream>
+using namespace std;
+#include <Windows.h>
+#include <MMSystem.h>
 #include <stdio.h>
 #include "glew.h"
 #include "glfw3.h"
 #include "stbi_image.h"
 #include <assert.h>
 #include <math.h>
+#include <thread>
+#pragma comment( lib, "Winmm.lib" )
+
 
 struct rect {
 	int x = 0;
@@ -15,6 +22,8 @@ struct rect {
 struct sprite {
 	rect sprite_rect;
 	GLuint texture_buffer;
+	int offset_x = 0;
+	int offset_y = 0;
 };
 namespace graphics {
 	extern const GLFWvidmode *video_mode;
@@ -33,7 +42,6 @@ namespace graphics {
 	void render(GLFWwindow **window);
 	GLuint load_texture(const char *filepath);
 	void display_sprite(sprite spr);
-	void display_sprite(sprite spr, int offset_x, int offset_y);
 	void close_opengl(GLFWwindow **window);
 	void graphics_main();
 }

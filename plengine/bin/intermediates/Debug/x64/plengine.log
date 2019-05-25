@@ -1,0 +1,15 @@
+﻿  main.cpp
+c:\development\github\2.0\plengine\plengine\plengine\src\graphics\graphics.h(5): fatal error C1083: Cannot open include file: 'stbi_image.h': No such file or directory
+  graphics.cpp
+c:\development\github\2.0\plengine\plengine\plengine\src\graphics\graphics.h(5): fatal error C1083: Cannot open include file: 'stbi_image.h': No such file or directory
+  graphics_main.cpp
+c:\development\github\2.0\plengine\plengine\plengine\src\graphics\graphics.h(5): fatal error C1083: Cannot open include file: 'stbi_image.h': No such file or directory
+  input.cpp
+c:\development\github\2.0\plengine\plengine\plengine\src\graphics\graphics.h(5): fatal error C1083: Cannot open include file: 'stbi_image.h': No such file or directory
+  math.cpp
+  client.cpp
+  server.cpp
+  physics.cpp
+  player.cpp
+c:\development\github\2.0\plengine\plengine\plengine\src\graphics\graphics.h(5): fatal error C1083: Cannot open include file: 'stbi_image.h': No such file or directory
+  Generating Code...

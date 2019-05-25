@@ -28,6 +28,10 @@ namespace player {
 		}
 		plr.player_sprite.sprite_rect.y += plr.speedy;
 		collission_handling(plr, obj, map1, 1);
+		if (plr.player_sprite.sprite_rect.x > graphics::width / 2)
+			plr.player_sprite.offset_x = plr.player_sprite.sprite_rect.x - graphics::width / 2;
+		if (plr.player_sprite.sprite_rect.y >= graphics::height / 2)
+			plr.player_sprite.offset_y = plr.player_sprite.sprite_rect.y - graphics::height / 2;
 	}
 	void collission_handling(player_struct &plr, sprite &obj, map map, int dir) {
 		for (int i = 0; i <= map1.map_height; i++) {

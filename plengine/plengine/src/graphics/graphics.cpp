@@ -82,20 +82,8 @@ namespace graphics {
 		return texture_buffer;
 	}
 	void display_sprite(sprite spr) {
-		glBindTexture(GL_TEXTURE_2D, spr.texture_buffer);
-		glEnable(GL_TEXTURE_2D);
-		glBegin(GL_QUADS);
-		glTexCoord2d(1, 0); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y); //Left upper corner
-		glTexCoord2d(0, 0); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y); //Right upper corner
-		glTexCoord2d(0, 1); glVertex2d(spr.sprite_rect.x + spr.sprite_rect.width, spr.sprite_rect.y - spr.sprite_rect.height); // Right down corner
-		glTexCoord2d(1, 1); glVertex2d(spr.sprite_rect.x, spr.sprite_rect.y - spr.sprite_rect.height); // Left down corner
-		glEnd();
-		glDisable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-	void display_sprite(sprite spr, int offset_x, int offset_y) {
-		spr.sprite_rect.x -= offset_x;
-		spr.sprite_rect.y -= offset_y;
+		spr.sprite_rect.x -= spr.offset_x;
+		spr.sprite_rect.y -= spr.offset_y;
 		glBindTexture(GL_TEXTURE_2D, spr.texture_buffer);
 		glEnable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
